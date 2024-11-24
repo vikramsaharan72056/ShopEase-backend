@@ -1,0 +1,38 @@
+[
+    {
+      "name": "Laptop",
+      "description": "A high-performance laptop with 16GB RAM and 512GB SSD.",
+      "price": 1200,
+      "category": "Electronics",
+      "image": "https://example.com/images/laptop.jpg"
+    },
+    {
+      "name": "Smartphone",
+      "description": "Latest model smartphone with a 6.5-inch display and 128GB storage.",
+      "price": 800,
+      "category": "Electronics",
+      "image": "https://example.com/images/smartphone.jpg"
+    },
+    {
+      "name": "Coffee Maker",
+      "description": "A stylish coffee maker with an automatic brew system.",
+      "price": 150,
+      "category": "Home Appliances",
+      "image": "https://example.com/images/coffee-maker.jpg"
+    },
+    {
+      "name": "Headphones",
+      "description": "Noise-canceling over-ear headphones with deep bass.",
+      "price": 250,
+      "category": "Electronics",
+      "image": "https://example.com/images/headphones.jpg"
+    },
+    {
+      "name": "Running Shoes",
+      "description": "Comfortable running shoes with excellent grip and support.",
+      "price": 120,
+      "category": "Footwear",
+      "image": "https://example.com/images/running-shoes.jpg"
+    }
+  ]
+  
