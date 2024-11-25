@@ -26,4 +26,17 @@ router.post('/add', async (req, res) => {
   }
 });
 
+// Get all cart items for a user
+
+router.get('/all', async (req, res) => {
+  const { userId } = req.body;
+  try {
+    const cart = await Cart.findOne({ userId });
+    res.json(cart);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
 module.exports = router;
