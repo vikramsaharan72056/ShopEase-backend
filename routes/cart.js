@@ -31,7 +31,7 @@ router.post('/add', async (req, res) => {
 router.get('/all', async (req, res) => {
   const { userId } = req.body;
   try {
-    const cart = await Cart.findOne({ userId });
+    const cart = await Cart.find();
     console.log(cart);
     res.json(cart);
   } catch (err) {
