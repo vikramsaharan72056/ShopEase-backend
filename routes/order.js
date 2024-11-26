@@ -1,5 +1,6 @@
 const express = require('express');
 const Order = require('../models/Order');
+const Cart = require('../models/Cart');
 const router = express.Router();
 
 // Get all orders
@@ -19,7 +20,14 @@ router.get('/:userId', async (req, res) => {
     try {    
       const order = new Order({ userId, items, totalAmount, paymentMethod, isPaid });
       await order.save();
+
+      await Cart.updateOne(
+        { userId },
+        { $pull: { products: { productId: { $in: items.map((item) => item.productId) } } } }
+      );
+      
       res.status(201).json(order);
+
     } catch (err) {
       res.status(500).json({ error: err.message });
     }
