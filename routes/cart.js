@@ -32,6 +32,7 @@ router.get('/all', async (req, res) => {
   const { userId } = req.body;
   try {
     const cart = await Cart.findOne({ userId });
+    console.log(cart);
     res.json(cart);
   } catch (err) {
     res.status(500).json({ error: err.message });
