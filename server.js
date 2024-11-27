@@ -14,6 +14,8 @@ const app = express();
 
 // Middleware
 app.use(cors());
+//whitelist my frontend
+app.use(cors({ origin: 'https://shopease-frontend.onrender.com' }));
 app.use(bodyParser.json());
 
 // Routes
