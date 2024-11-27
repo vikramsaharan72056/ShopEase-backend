@@ -57,9 +57,10 @@ router.get('/all/:userId', async (req, res) => {
 });
 
 // Update quantity of a specific cart item
-router.put('/:productId', async (req, res) => {
-  const { userId, quantity } = req.body;
-  const { productId } = req.params;
+// Update cart to remove ordered items
+router.put('/update/:userId', async (req, res) => {
+  const { userId } = req.params;
+  const { orderedProductIds } = req.body;
 
   try {
     const cart = await Cart.findOne({ userId });
@@ -68,17 +69,10 @@ router.put('/:productId', async (req, res) => {
       return res.status(404).json({ message: 'Cart not found' });
     }
 
-    const productIndex = cart.products.findIndex((p) => p.productId == productId);
-
-    if (productIndex === -1) {
-      return res.status(404).json({ message: 'Product not found in cart' });
-    }
-
-    if (quantity < 1) {
-      cart.products.splice(productIndex, 1); // Remove product if quantity is < 1
-    } else {
-      cart.products[productIndex].quantity = quantity; // Update quantity
-    }
+    // Filter out ordered items from the cart
+    cart.products = cart.products.filter(
+      (item) => !orderedProductIds.includes(item.productId.toString())
+    );
 
     await cart.save();
     const populatedCart = await cart.populate('products.productId', 'name price image');
@@ -87,6 +81,7 @@ router.put('/:productId', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 // Remove item from cart
 router.delete('/:itemId', async (req, res) => {
