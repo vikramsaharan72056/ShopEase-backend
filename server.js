@@ -3,6 +3,7 @@ const connectDB = require('./config/db');
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const path = require('path');
 
 // Load environment variables
 dotenv.config();
@@ -38,6 +39,18 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/products', require('./routes/product'));
 app.use('/api/cart', require('./routes/cart'));
 app.use('/api/orders', require('./routes/order'));
+
+
+// Serve static React frontend in production
+if (process.env.NODE_ENV === 'production') {
+  // Serve frontend build folder
+  app.use(express.static(path.join(__dirname, 'frontend', 'build')));
+
+  // Catch-all route to serve React's index.html
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+  });
+}
 
 // Start server
 const PORT = process.env.PORT || 5000;
